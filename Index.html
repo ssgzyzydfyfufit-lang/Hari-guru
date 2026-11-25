@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Selamat Hari Guru 2026 - Spesial untuk Bu Ni'mah Faadlilah, S.Pd. (Guru Informatika) dari Kelas 7B SMP 3 GARUM</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Plus Jakarta Sans & Caveat for Chalkboard style -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <!-- GSAP & ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  
+  <!-- Lenis Smooth Scroll -->
+  <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            serif: ['"Playfair Display"', 'serif'],
+            handwriting: ['"Caveat"', 'cursive'],
+          },
+          colors: {
+            brand: {
+              50: '#fffbeb',
+              100: '#fef3c7',
+              400: '#fbbf24',
+              500: '#f59e0b',
+              600: '#d97706',
+              800: '#92400e',
+              900: '#78350f',
+            },
+            chalkboard: '#1e293b',
+          },
+          animation: {
+            'float': 'float 6s ease-in-out infinite',
+            'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'spin-slow': 'spin 12s linear infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-12px)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #f59e0b;
+    }
+
+    /* Glassmorphism utility */
+    .glass-card {
+      background: rgba(30, 41, 59, 0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-card-light {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(245, 158, 11, 0.2);
+    }
+
+    /* Chalkboard Effect */
+    .chalkboard-bg {
+      background-color: #1a2332;
+      background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+    
+    .chalk-text {
+      text-shadow: 0 0 2px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.2);
+    }
+
+    /* Sound Visualizer Bars */
+    .bar {
+      display: inline-block;
+      width: 3px;
+      height: 12px;
+      background-color: #f59e0b;
+      border-radius: 3px;
+      margin: 0 1px;
+      transition: height 0.2s ease;
+    }
+    .playing .bar:nth-child(1) { animation: bounce 0.6s ease-in-out infinite alternate; }
+    .playing .bar:nth-child(2) { animation: bounce 0.8s ease-in-out infinite alternate 0.2s; }
+    .playing .bar:nth-child(3) { animation: bounce 0.5s ease-in-out infinite alternate 0.4s; }
+    .playing .bar:nth-child(4) { animation: bounce 0.7s ease-in-out infinite alternate 0.1s; }
+
+    @keyframes bounce {
+      0% { height: 4px; }
+      100% { height: 18px; }
+    }
+
+    /* Floating Particle Canvas */
+    #particle-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+  </style>
+</head>
+
+<body class="bg-slate-950 text-slate-100 font-sans overflow-x-hidden selection:bg-amber-500 selection:text-slate-950">
+
+  <!-- Background Floating Light Effects -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+    <div class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-amber-500/10 rounded-full blur-[140px]"></div>
+    <div class="absolute top-[40%] right-[-10%] w-[600px] h-[600px] bg-amber-600/10 rounded-full blur-[160px]"></div>
+    <div class="absolute bottom-[-10%] left-[20%] w-[500px] h-[500px] bg-yellow-500/10 rounded-full blur-[140px]"></div>
+  </div>
+
+  <!-- Music Audio Element -->
+  <audio id="bg-music" loop preload="auto">
+    <source src="https://www.image2url.com/r2/default/audio/1795570077286-8474dafb-f4a9-4c44-8694-046f13d2e66a.mp3" type="audio/mpeg">
+    Browser Anda tidak mendukung audio player.
+  </audio>
+
+  <!-- Sticky Audio Control Widget (Bottom Right) -->
+  <div class="fixed bottom-6 right-6 z-50 flex items-center gap-3">
+    <button id="music-btn" onclick="toggleAudio()" class="group flex items-center gap-3 bg-slate-900/90 hover:bg-slate-800 text-amber-400 px-4 py-3 rounded-full border border-amber-500/30 shadow-xl shadow-amber-500/10 backdrop-blur-md transition-all duration-300 hover:scale-105 active:scale-95">
+      <div id="visualizer" class="flex items-end h-5 px-1">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </div>
+      <div class="text-left pr-1">
+        <p class="text-[10px] uppercase tracking-wider text-slate-400 font-semibold leading-tight">Lagu Hari Guru</p>
+        <p id="music-status-text" class="text-xs font-bold text-amber-300">Klik untuk Musik 🎵</p>
+      </div>
+      <div class="w-8 h-8 rounded-full bg-amber-500/20 flex items-center justify-center text-amber-400 group-hover:bg-amber-500 group-hover:text-slate-950 transition-colors">
+        <i id="music-icon" data-lucide="play" class="w-4 h-4 fill-current"></i>
+      </div>
+    </button>
+  </div>
+
+  <!-- Top Announcement Navigation Bar -->
+  <header class="relative z-20 border-b border-white/10 bg-slate-950/80 backdrop-blur-md sticky top-0">
+    <div class="max-w-6xl mx-auto px-4 py-3.5 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <span class="px-3 py-1 bg-amber-500/10 border border-amber-500/30 rounded-full text-amber-400 text-xs font-semibold tracking-wide flex items-center gap-1.5">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> 25 November 2026
+        </span>
+        <span class="text-xs text-slate-400 hidden sm:inline-block">• Hari Guru Nasional</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="px-3 py-1 bg-slate-800/80 rounded-full text-slate-300 text-xs font-medium border border-slate-700/50 flex items-center gap-1.5">
+          <i data-lucide="users" class="w-3.5 h-3.5 text-amber-400"></i> Salam hangat dari <strong>Kelas 7B SMP 3 GARUM</strong>
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <main class="relative z-10">
+
+    <!-- HERO SECTION -->
+    <section class="relative min-h-[90vh] flex items-center justify-center pt-12 pb-20 px-4 overflow-hidden">
+      <canvas id="particle-canvas"></canvas>
+      
+      <div class="max-w-4xl mx-auto text-center space-y-8 relative z-10">
+        
+        <!-- Glowing Badge -->
+        <div class="hero-badge inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs sm:text-sm font-semibold tracking-wider uppercase backdrop-blur-md shadow-lg shadow-amber-500/5">
+          <i data-lucide="heart" class="w-4 h-4 text-amber-400 fill-amber-400 animate-pulse"></i> Persembahan Istimewa Murid Kelas 7B SMP 3 GARUM
+        </div>
+
+        <!-- Main Heading -->
+        <div class="space-y-4">
+          <p class="text-amber-400 font-serif italic text-lg sm:text-2xl hero-subhead">Terima Kasih Guru Informatika Kesayangan Kami</p>
+          <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white hero-title leading-none">
+            Selamat Hari Guru <br>
+            <span class="bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-500 bg-clip-text text-transparent drop-shadow-sm">
+              Bu Ni'mah Faadlilah, S.Pd.
+            </span>
+          </h1>
+          <p class="text-slate-300 text-base sm:text-xl max-w-2xl mx-auto font-light leading-relaxed hero-desc pt-2">
+            Terima kasih atas segala ilmu Informatika, kesabaran tanpa batas, bimbingan teknologi & logika yang penuh kasih, serta senyuman hangat yang selalu menceriakan setiap jam pelajaran di kelas 7B SMP 3 GARUM.
+          </p>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-wrap items-center justify-center gap-4 pt-4 hero-btns">
+          <button onclick="scrollToLetter()" class="px-7 py-3.5 rounded-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-sm tracking-wide shadow-xl shadow-amber-500/20 hover:scale-105 active:scale-95 transition-all duration-300 flex items-center gap-2">
+            <i data-lucide="mail-open" class="w-4 h-4"></i> Buka Surat dari 7B
+          </button>
+          
+          <button onclick="scrollToBouquet()" class="px-7 py-3.5 rounded-full bg-slate-900/90 hover:bg-slate-800 text-amber-300 border border-amber-500/30 font-semibold text-sm tracking-wide hover:scale-105 active:scale-95 transition-all duration-300 flex items-center gap-2">
+            <i data-lucide="flower-2" class="w-4 h-4 text-amber-400"></i> Beri Buket Bunga 💐
+          </button>
+          
+          <button onclick="triggerConfetti()" class="p-3.5 rounded-full bg-slate-900/80 text-amber-400 border border-slate-700 hover:border-amber-400 transition-all hover:rotate-12" title="Letupkan Kembang Api">
+            <i data-lucide="party-popper" class="w-5 h-5"></i>
+          </button>
+        </div>
+
+        <!-- Quick Stats / Highlights -->
+        <div class="pt-12 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
+          <div class="glass-card p-4 rounded-2xl border border-white/5 text-center">
+            <div class="text-2xl sm:text-3xl font-extrabold text-amber-400 font-serif">100%</div>
+            <div class="text-xs text-slate-400 mt-1">Kasih Sayang 7B</div>
+          </div>
+          <div class="glass-card p-4 rounded-2xl border border-white/5 text-center">
+            <div class="text-2xl sm:text-3xl font-extrabold text-amber-400 font-serif">∞</div>
+            <div class="text-xs text-slate-400 mt-1">Kesabaran Bu Ni'mah</div>
+          </div>
+          <div class="glass-card p-4 rounded-2xl border border-white/5 text-center">
+            <div class="text-2xl sm:text-3xl font-extrabold text-amber-400 font-serif">25 Nov</div>
+            <div class="text-xs text-slate-400 mt-1">Momen Istimewa</div>
+          </div>
+          <div class="glass-card p-4 rounded-2xl border border-white/5 text-center">
+            <div class="text-2xl sm:text-3xl font-extrabold text-amber-400 font-serif">7B</div>
+            <div class="text-xs text-slate-400 mt-1">Kelas Kebanggaan</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 2: SURAT SPESIAL KELAS 7B (Interactive Envelope) -->
+    <section id="letter-section" class="py-20 px-4 relative">
+      <div class="max-w-3xl mx-auto">
+        <div class="text-center space-y-3 mb-10 reveal-up">
+          <span class="text-amber-400 font-serif italic text-lg">Pesan Ungkapan Hati</span>
+          <h2 class="text-3xl sm:text-4xl font-bold text-white">Surat Cinta dari Anak-Anak Kelas 7B</h2>
+          <p class="text-slate-400 text-sm max-w-md mx-auto">Klik amplop di bawah ini untuk membuka dan membaca ucapan spesial yang kami tulis khusus untuk Bu Ni'mah.</p>
+        </div>
+
+        <!-- Interactive Envelope Component -->
+        <div class="relative flex justify-center">
+          <div id="envelope-box" onclick="toggleLetter()" class="w-full max-w-xl cursor-pointer group transition-transform duration-500 hover:scale-[1.02]">
+            
+            <!-- Envelope Front Banner (Unopened State) -->
+            <div id="envelope-closed" class="glass-card rounded-3xl p-8 sm:p-12 text-center border-2 border-amber-500/30 shadow-2xl relative overflow-hidden flex flex-col items-center justify-center min-h-[320px]">
+              <div class="absolute -right-8 -top-8 w-32 h-32 bg-amber-500/10 rounded-full blur-2xl group-hover:bg-amber-500/20 transition-all"></div>
+              
+              <div class="w-20 h-20 rounded-full bg-amber-500/20 flex items-center justify-center text-amber-400 mb-6 group-hover:scale-110 transition-transform">
+                <i data-lucide="mail" class="w-10 h-10"></i>
+              </div>
+              
+              <h3 class="text-2xl font-bold text-white mb-2">Kepada: Ibu Ni'mah Faadlilah, S.Pd.</h3>
+              <p class="text-amber-300 text-sm font-medium">Dari: Seluruh Siswa & Siswi Kelas 7B SMP</p>
+              
+              <div class="mt-8 px-6 py-2.5 bg-amber-500 text-slate-950 font-bold rounded-full text-xs uppercase tracking-wider flex items-center gap-2 group-hover:bg-amber-400 transition-colors">
+                <i data-lucide="sparkles" class="w-4 h-4"></i> Klik Untuk Membuka Surat
+              </div>
+            </div>
+
+            <!-- Opened Letter State (Hidden initially) -->
+            <div id="envelope-opened" class="hidden glass-card-light rounded-3xl p-8 sm:p-12 text-slate-800 shadow-2xl border border-amber-300/50 relative">
+              <button onclick="event.stopPropagation(); toggleLetter();" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-200 hover:bg-slate-300 text-slate-700 flex items-center justify-center transition-colors">
+                <i data-lucide="x" class="w-4 h-4"></i>
+              </button>
+
+              <div class="flex items-center gap-3 border-b border-amber-200 pb-4 mb-6">
+                <div class="w-10 h-10 rounded-full bg-amber-500 text-slate-950 flex items-center justify-center font-bold text-lg font-serif">
+                  7B
+                </div>
+                <div>
+                  <h4 class="font-bold text-slate-900 text-lg">Surat Spesial Hari Guru</h4>
+                  <p class="text-xs text-amber-800 font-medium">25 November 2026 • Untuk Bu Ni'mah Faadlilah, S.Pd. (Guru Informatika)</p>
+                </div>
+              </div>
+
+              <div class="space-y-4 font-serif leading-relaxed text-slate-700 text-base sm:text-lg">
+                <p class="font-bold text-slate-900">Assalamu’alaikum Warahmatullahi Wabarakatuh,</p>
+                <p>
+                  Ibu Ni'mah yang kami sayangi, Selamat Hari Guru 2026! 🌸
+                </p>
+                <p>
+                  Kami dari kelas 7B SMP 3 GARUM ingin mengucapkan terima kasih yang sedalam-dalamnya. Di jenjang SMP 3 GARUM ini, Ibu bukan hanya mengajar pelajaran Informatika dan mengenalkan kami pada dunia teknologi & komputer, tetapi juga mendidik kami dengan penuh ketulusan, senyuman, dan kesabaran yang luar biasa.
+                </p>
+                <p>
+                  Maafkan kami jika sering kali kami kurang tertib saat praktik atau teori di kelas, bercanda, atau membuat Ibu lelah. Ketahuilah, setiap nasihat dan materi Informatika dari Ibu selalu membakar semangat kami untuk menjadi generasi yang lebih cerdas dan berkarya setiap harinya.
+                </p>
+                <p>
+                  Semoga Allah SWT selalu melimpahkan kesehatan, kebahagiaan, keberkahan usia, serta perlindungan untuk Ibu Ni'mah dan keluarga. Terima kasih telah menjadi pelita dan pahlawan bagi kami di Kelas 7B SMP 3 GARUM!
+                </p>
+              </div>
+
+              <div class="mt-8 pt-6 border-t border-amber-200 flex items-center justify-between">
+                <div>
+                  <p class="text-xs text-slate-500 uppercase font-sans font-semibold">Salam Sayang & Hormat Kami,</p>
+                  <p class="font-serif font-bold text-slate-900 text-lg mt-0.5">Teman-teman 7B SMP 3 GARUM 🎓</p>
+                </div>
+                <button onclick="event.stopPropagation(); triggerConfetti();" class="px-4 py-2 bg-amber-500 text-slate-950 text-xs font-bold rounded-full hover:bg-amber-400 flex items-center gap-1.5 transition-colors">
+                  <i data-lucide="heart" class="w-3.5 h-3.5 fill-current"></i> Beri Love
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: BUKET BUNGA DIGITAL UNTUK BU NI'MAH -->
+    <section id="bouquet-section" class="py-20 px-4 bg-slate-900/40 relative border-y border-white/5">
+      <div class="max-w-5xl mx-auto">
+        <div class="text-center space-y-3 mb-12 reveal-up">
+          <span class="text-amber-400 font-serif italic text-lg">Persembahan Interaktif</span>
+          <h2 class="text-3xl sm:text-4xl font-bold text-white">Buket Bunga Digital Kelas 7B</h2>
+          <p class="text-slate-400 text-sm max-w-lg mx-auto">Pilih jenis bunga di bawah ini untuk menambahkan tangkai bunga ke dalam vas persembahan khusus untuk Bu Ni'mah!</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          
+          <!-- Flower Controls (Left Column) -->
+          <div class="lg:col-span-5 space-y-4">
+            <h3 class="text-lg font-bold text-amber-300 mb-2 flex items-center gap-2">
+              <i data-lucide="sparkles" class="w-4 h-4 text-amber-400"></i> Petik Bunga Apresiasi:
+            </h3>
+
+            <!-- Flower Option 1 -->
+            <button onclick="addFlower('Mawar Merah', '🥀 Ketulusan & Cinta Kelas 7B')" class="w-full glass-card hover:bg-slate-800/80 p-4 rounded-2xl border border-white/10 flex items-center justify-between group transition-all duration-300 text-left">
+              <div class="flex items-center gap-3">
+                <span class="text-3xl group-hover:scale-125 transition-transform">🌹</span>
+                <div>
+                  <h4 class="font-bold text-white text-sm">Mawar Merah Ketulusan</h4>
+                  <p class="text-xs text-slate-400">Simbol kasih sayang & rasa hormat kami</p>
+                </div>
+              </div>
+              <span class="text-xs px-3 py-1 bg-amber-500/20 text-amber-300 rounded-full font-semibold border border-amber-500/30 group-hover:bg-amber-500 group-hover:text-slate-950 transition-colors">+ Petik</span>
+            </button>
+
+            <!-- Flower Option 2 -->
+            <button onclick="addFlower('Melati Putih', '🤍 Kesucian & Kebaikan Budi')" class="w-full glass-card hover:bg-slate-800/80 p-4 rounded-2xl border border-white/10 flex items-center justify-between group transition-all duration-300 text-left">
+              <div class="flex items-center gap-3">
+                <span class="text-3xl group-hover:scale-125 transition-transform">🌸</span>
+                <div>
+                  <h4 class="font-bold text-white text-sm">Melati Budi Pekerti</h4>
+                  <p class="text-xs text-slate-400">Melambangkan kelembutan & kesabaran Bu Ni'mah</p>
+                </div>
+              </div>
+              <span class="text-xs px-3 py-1 bg-amber-500/20 text-amber-300 rounded-full font-semibold border border-amber-500/30 group-hover:bg-amber-500 group-hover:text-slate-950 transition-colors">+ Petik</span>
+            </button>
+
+            <!-- Flower Option 3 -->
+            <button onclick="addFlower('Matahari Gold', '🌻 Semangat & Pelita Inspirasi')" class="w-full glass-card hover:bg-slate-800/80 p-4 rounded-2xl border border-white/10 flex items-center justify-between group transition-all duration-300 text-left">
+              <div class="flex items-center gap-3">
+                <span class="text-3xl group-hover:scale-125 transition-transform">🌻</span>
+                <div>
+                  <h4 class="font-bold text-white text-sm">Bunga Matahari Inspirasi</h4>
+                  <p class="text-xs text-slate-400">Penerang dan penyemangat suasana belajar</p>
+                </div>
+              </div>
+              <span class="text-xs px-3 py-1 bg-amber-500/20 text-amber-300 rounded-full font-semibold border border-amber-500/30 group-hover:bg-amber-500 group-hover:text-slate-950 transition-colors">+ Petik</span>
+            </button>
+
+            <!-- Flower Option 4 -->
+            <button onclick="addFlower('Anggrek Keanggunan', '🪻 Anggrek Kehangatan')" class="w-full glass-card hover:bg-slate-800/80 p-4 rounded-2xl border border-white/10 flex items-center justify-between group transition-all duration-300 text-left">
+              <div class="flex items-center gap-3">
+                <span class="text-3xl group-hover:scale-125 transition-transform">🪻</span>
+                <div>
+                  <h4 class="font-bold text-white text-sm">Anggrek Keindahan</h4>
+                  <p class="text-xs text-slate-400">Keanggunan dalam membimbing 7B</p>
+                </div>
+              </div>
+              <span class="text-xs px-3 py-1 bg-amber-500/20 text-amber-300 rounded-full font-semibold border border-amber-500/30 group-hover:bg-amber-500 group-hover:text-slate-950 transition-colors">+ Petik</span>
+            </button>
+          </div>
+
+          <!-- Vase Display (Right Column) -->
+          <div class="lg:col-span-7">
+            <div class="glass-card rounded-3xl p-8 border border-amber-500/20 text-center relative overflow-hidden flex flex-col items-center justify-center min-h-[420px]">
+              
+              <div class="absolute top-4 right-4 flex items-center gap-2 bg-slate-900/80 px-3 py-1.5 rounded-full border border-slate-700 text-xs">
+                <span class="text-slate-400">Total Bunga:</span>
+                <span id="flower-count" class="font-bold text-amber-400 text-sm">3</span>
+              </div>
+
+              <!-- Animated Bouquet Canvas Display -->
+              <div id="flower-vase-container" class="relative w-full h-64 flex items-end justify-center py-4">
+                <div id="bouquet-flowers" class="flex items-end justify-center gap-1 sm:gap-2 pb-16 flex-wrap max-w-md transition-all">
+                  <span class="text-5xl sm:text-6xl animate-bounce hover:scale-125 transition-transform cursor-pointer" title="Mawar Merah">🌹</span>
+                  <span class="text-5xl sm:text-6xl animate-pulse hover:scale-125 transition-transform cursor-pointer" title="Bunga Matahari">🌻</span>
+                  <span class="text-5xl sm:text-6xl hover:scale-125 transition-transform cursor-pointer" title="Melati Putih">🌸</span>
+                </div>
+                
+                <!-- Vas Gambar / Silhouette -->
+                <div class="absolute bottom-0 w-32 h-28 bg-gradient-to-t from-amber-600/40 via-amber-500/20 to-transparent border-b-4 border-amber-500/60 rounded-b-3xl rounded-t-lg backdrop-blur-md flex items-center justify-center shadow-2xl">
+                  <span class="text-xs font-bold text-amber-300 uppercase tracking-widest text-center px-2">Vas 7B <br><span class="text-[10px] text-slate-300 lowercase font-normal">teruntuk bu ni'mah</span></span>
+                </div>
+              </div>
+
+              <div class="mt-6 text-center space-y-2">
+                <p id="flower-last-message" class="text-sm font-semibold text-amber-300 font-serif italic">
+                  "3 Bunga telah terpetik untuk Bu Ni'mah Faadlilah, S.Pd."
+                </p>
+                <p class="text-xs text-slate-400">Setiap tangkai mewakili satu rasa syukur dari kami anak-anak 7B.</p>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: DINDING DOA & HARAPAN UNTUK BU NI'MAH -->
+    <section class="py-20 px-4 relative">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center space-y-3 mb-12 reveal-up">
+          <span class="text-amber-400 font-serif italic text-lg">Untaian Doa & Harapan</span>
+          <h2 class="text-3xl sm:text-4xl font-bold text-white">Dinding Doa Kelas 7B</h2>
+          <p class="text-slate-400 text-sm max-w-md mx-auto">Doa-doa terbaik yang dipanjatkan oleh siswa-siswi 7B untuk kebaikan Bu Ni'mah.</p>
+        </div>
+
+        <!-- Add Prayer Form -->
+        <div class="max-w-2xl mx-auto mb-12 glass-card p-6 rounded-3xl border border-amber-500/30">
+          <h3 class="text-base font-bold text-amber-300 mb-4 flex items-center gap-2">
+            <i data-lucide="plus-circle" class="w-4 h-4"></i> Tambahkan Doa / Pesan Anda untuk Bu Ni'mah:
+          </h3>
+          <form onsubmit="submitPrayer(event)" class="space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <input type="text" id="prayer-name" required placeholder="Nama Anda (contoh: Ahmad 7B / Wali Murid)" class="w-full bg-slate-900 border border-slate-700 focus:border-amber-500 text-slate-100 rounded-xl px-4 py-2.5 text-sm focus:outline-none transition-colors">
+              <select id="prayer-tag" class="w-full bg-slate-900 border border-slate-700 focus:border-amber-500 text-slate-100 rounded-xl px-4 py-2.5 text-sm focus:outline-none transition-colors">
+                <option value="🤲 Doa Kesehatan">🤲 Doa Kesehatan</option>
+                <option value="🌟 Doa Kelancaran & Sukses">🌟 Doa Kelancaran & Sukses</option>
+                <option value="❤️ Ungkapan Terima Kasih">❤️ Ungkapan Terima Kasih</option>
+                <option value="😊 Pesan Manis 7B">😊 Pesan Manis 7B</option>
+              </select>
+            </div>
+            <textarea id="prayer-text" required rows="3" placeholder="Tuliskan doa atau pesan terbaik Anda di sini..." class="w-full bg-slate-900 border border-slate-700 focus:border-amber-500 text-slate-100 rounded-xl px-4 py-2.5 text-sm focus:outline-none transition-colors resize-none"></textarea>
+            <div class="flex justify-end">
+              <button type="submit" class="px-6 py-2.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl text-xs uppercase tracking-wider flex items-center gap-2 transition-all">
+                <i data-lucide="send" class="w-4 h-4"></i> Kirimkan Doa
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Prayer Grid Wall -->
+        <div id="prayer-wall" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          
+          <!-- Card 1 -->
+          <div class="glass-card p-6 rounded-2xl border border-white/10 hover:border-amber-500/40 transition-all duration-300 flex flex-col justify-between">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="text-[11px] font-semibold px-2.5 py-1 bg-amber-500/10 text-amber-400 rounded-full border border-amber-500/20">🤲 Doa Kesehatan</span>
+                <span class="text-[10px] text-slate-500">Dari Kelas 7B SMP 3 GARUM</span>
+              </div>
+              <p class="text-slate-200 text-sm leading-relaxed font-serif italic">
+                "Semoga Bu Ni'mah senantiasa diberikan kesehatan yang prima, umur yang berkah, serta kelapangan hati dalam mendidik kami pelajaran Informatika di SMP 3 GARUM."
+              </p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-white/5 flex items-center justify-between">
+              <span class="text-xs font-bold text-slate-300">~ Teman-teman 7B SMP 3 GARUM</span>
+              <button onclick="likeCard(this)" class="text-slate-400 hover:text-amber-400 flex items-center gap-1 text-xs transition-colors">
+                <i data-lucide="heart" class="w-3.5 h-3.5"></i> <span class="like-count">14</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="glass-card p-6 rounded-2xl border border-white/10 hover:border-amber-500/40 transition-all duration-300 flex flex-col justify-between">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="text-[11px] font-semibold px-2.5 py-1 bg-amber-500/10 text-amber-400 rounded-full border border-amber-500/20">❤️ Ungkapan Terima Kasih</span>
+                <span class="text-[10px] text-slate-500">Dari Kelas 7B SMP 3 GARUM</span>
+              </div>
+              <p class="text-slate-200 text-sm leading-relaxed font-serif italic">
+                "Terima kasih Bu Ni'mah sudah mengajar Informatika dengan sangat sabar. Walau kadang 7B suka ramai, senyum Ibu selalu bikin kelas adem!"
+              </p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-white/5 flex items-center justify-between">
+              <span class="text-xs font-bold text-slate-300">~ Teman-teman 7B SMP 3 GARUM</span>
+              <button onclick="likeCard(this)" class="text-slate-400 hover:text-amber-400 flex items-center gap-1 text-xs transition-colors">
+                <i data-lucide="heart" class="w-3.5 h-3.5"></i> <span class="like-count">21</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="glass-card p-6 rounded-2xl border border-white/10 hover:border-amber-500/40 transition-all duration-300 flex flex-col justify-between">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="text-[11px] font-semibold px-2.5 py-1 bg-amber-500/10 text-amber-400 rounded-full border border-amber-500/20">🌟 Doa Kelancaran & Sukses</span>
+                <span class="text-[10px] text-slate-500">Dari Kelas 7B SMP 3 GARUM</span>
+              </div>
+              <p class="text-slate-200 text-sm leading-relaxed font-serif italic">
+                "Semoga setiap langkah dan ilmu Informatika yang Ibu ajarkan menjadi amal jariyah yang tak pernah terputus. Sukses selalu untuk Bu Ni'mah!"
+              </p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-white/5 flex items-center justify-between">
+              <span class="text-xs font-bold text-slate-300">~ Teman-teman 7B SMP 3 GARUM</span>
+              <button onclick="likeCard(this)" class="text-slate-400 hover:text-amber-400 flex items-center gap-1 text-xs transition-colors">
+                <i data-lucide="heart" class="w-3.5 h-3.5"></i> <span class="like-count">18</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: PAPAN TULIS DIGITAL KELAS 7B (Chalkboard Vibe) -->
+    <section class="py-20 px-4 chalkboard-bg relative border-y border-white/10">
+      <div class="max-w-5xl mx-auto">
+        
+        <!-- Chalkboard Wooden Frame Container -->
+        <div class="border-[12px] border-amber-900/80 rounded-3xl p-6 sm:p-12 shadow-2xl relative bg-slate-900/90 text-white">
+          
+          <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-8">
+            <div class="flex items-center gap-3">
+              <span class="text-3xl">💻</span>
+              <div>
+                <h3 class="font-handwriting text-3xl sm:text-4xl text-amber-300 tracking-wide chalk-text">Papan Tulis Kenangan Kelas 7B</h3>
+                <p class="text-xs text-slate-400">Hari Guru Nasional • 25 November 2026</p>
+              </div>
+            </div>
+            <span class="hidden sm:inline-block font-handwriting text-2xl text-amber-400">SMP 3 GARUM Champion 🌟</span>
+          </div>
+
+          <!-- Chalkboard Content Items -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 font-handwriting text-xl sm:text-2xl text-slate-200">
+            
+            <div class="bg-white/5 p-6 rounded-2xl border border-white/10 space-y-3">
+              <div class="flex items-center gap-2 text-amber-400">
+                <i data-lucide="laptop" class="w-6 h-6"></i>
+                <h4 class="font-bold text-2xl text-white">Catatan Guru Informatika Terbaik</h4>
+              </div>
+              <p class="leading-relaxed text-slate-300 chalk-text">
+                "Di papan ini tercatat rapi rasa bangga kami mempunyai guru Informatika seperti Ibu Ni'mah Faadlilah, S.Pd. Yang selalu sabar menerangkan komputer & materi informatika sampai kami benar-benar paham."
+              </p>
+            </div>
+
+            <div class="bg-white/5 p-6 rounded-2xl border border-white/10 space-y-3">
+              <div class="flex items-center gap-2 text-amber-400">
+                <i data-lucide="award" class="w-6 h-6"></i>
+                <h4 class="font-bold text-2xl text-white">Penghargaan Istimewa 7B</h4>
+              </div>
+              <ul class="space-y-2 text-slate-300 chalk-text">
+                <li>✨ Guru Informatika Ter-Sabar & Ter-Ramah 2026</li>
+                <li>✨ Pahlawan Kebanggaan Anak 7B SMP 3 GARUM</li>
+                <li>✨ Senyuman Ter-Adem Di SMP 3 GARUM</li>
+              </ul>
+            </div>
+
+          </div>
+
+          <!-- Digital Chalk Signatures Carousel / Badges -->
+          <div class="mt-8 pt-6 border-t border-white/10 text-center space-y-3">
+            <p class="text-sm font-handwriting text-amber-300 text-2xl">Cap Jempol & Tanda Tangan Digital Siswa Kelas 7B SMP 3 GARUM:</p>
+            <div class="flex flex-wrap justify-center gap-2 pt-2">
+              <span class="px-3 py-1 bg-amber-500/10 border border-amber-500/30 rounded-full text-xs font-handwriting text-amber-200 text-lg">✍️ Teman-teman 7B SMP 3 GARUM</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: PUISI APRESIASI & KARTU DIGITAL EXPORT -->
+    <section class="py-20 px-4 relative">
+      <div class="max-w-4xl mx-auto space-y-16">
+        
+        <!-- Puisi Spesial -->
+        <div class="glass-card p-8 sm:p-12 rounded-3xl border border-amber-500/20 text-center space-y-6 relative overflow-hidden">
+          <div class="w-12 h-12 rounded-full bg-amber-500/10 flex items-center justify-center text-amber-400 mx-auto">
+            <i data-lucide="book-open" class="w-6 h-6"></i>
+          </div>
+          
+          <h3 class="text-2xl sm:text-3xl font-bold font-serif text-white">Puisi Untuk Bu Ni'mah Faadlilah (Guru Informatika)</h3>
+          
+          <div class="space-y-4 font-serif italic text-slate-300 leading-relaxed text-base sm:text-lg max-w-2xl mx-auto">
+            <p>
+              Langkah penuh ikhlas menyapa ruang kelas,<br>
+              Membawa pelita di tengah rasa cemas.<br>
+              Ibu Ni'mah membimbing kami tanpa lelah,<br>
+              Menjadikan ilmu Informatika terasa indah.
+            </p>
+            <p>
+              Terima kasih atas sabar yang tak pernah padam,<br>
+              Menerangi mimpi kami yang dulu buram.<br>
+              Dari kami murid 7B SMP 3 GARUM yang menaruh hormat,<br>
+              Semoga kebaikan Ibu dibalas berkah berlipat-lipat.
+            </p>
+          </div>
+          
+          <p class="text-xs uppercase tracking-widest text-amber-400 font-sans font-semibold pt-2">~ Persembahan Teman-teman 7B SMP 3 GARUM ~</p>
+        </div>
+
+        <!-- Downloadable / Printable Digital Gratitude Card -->
+        <div class="glass-card-light p-8 rounded-3xl text-slate-900 border border-amber-300 shadow-2xl space-y-6">
+          <div class="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-amber-200 pb-4">
+            <div>
+              <span class="text-xs uppercase font-bold text-amber-800 tracking-wider">Kartu Kenang-Kenangan Digital</span>
+              <h4 class="text-xl font-bold text-slate-900">Kartu Apresiasi Hari Guru 2026</h4>
+            </div>
+            <button onclick="copyCardText()" class="px-4 py-2 bg-slate-900 text-amber-300 hover:bg-slate-800 rounded-full text-xs font-bold transition-colors flex items-center gap-1.5">
+              <i data-lucide="copy" class="w-3.5 h-3.5"></i> Salin Ucapan
+            </button>
+          </div>
+
+          <div id="card-content-area" class="bg-amber-50/80 p-6 rounded-2xl border border-amber-200 space-y-3 font-serif">
+            <p class="text-amber-900 font-bold text-lg">Teruntuk Ibu Ni'mah Faadlilah, S.Pd.</p>
+            <p class="text-slate-800 text-sm leading-relaxed">
+              "Selamat Hari Guru 25 November 2026. Terima kasih sudah menjadi sosok guru Informatika yang sangat baik, ramah, dan menginspirasi kami di Kelas 7B SMP 3 GARUM. Salam hangat dan doa terbaik dari kami semua!"
+            </p>
+            <div class="pt-2 text-xs font-sans text-amber-800 font-semibold flex items-center justify-between">
+              <span>Salam Hormat, Teman-teman 7B SMP 3 GARUM</span>
+              <span>25 November 2026</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-white/10 py-12 px-4 bg-slate-950 text-center space-y-4 relative z-10">
+    <div class="flex justify-center items-center gap-2 text-amber-400 font-serif font-bold text-lg">
+      <i data-lucide="heart" class="w-5 h-5 fill-current animate-pulse"></i> Kelas 7B SMP 3 GARUM • 2026
+    </div>
+    <p class="text-slate-400 text-xs max-w-md mx-auto">
+      Dibuat dengan rasa cinta, hormat, dan rasa terima kasih yang setinggi-tingginya khusus untuk Ibu Ni'mah Faadlilah, S.Pd. pada Hari Guru Nasional 25 November 2026.
+    </p>
+    <div class="pt-4 flex justify-center gap-3">
+      <button onclick="triggerConfetti()" class="px-4 py-2 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs hover:bg-amber-500 hover:text-slate-950 transition-all font-semibold">
+        🎉 Letupkan Kembang Api Perayaan
+      </button>
+    </div>
+  </footer>
+
+  <!-- SCRIPT LOGIC -->
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Initialize Lenis Smooth Scroll
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true
+    });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+    // Audio Controls
+    const bgAudio = document.getElementById('bg-music');
+    const musicBtn = document.getElementById('music-btn');
+    const musicStatusText = document.getElementById('music-status-text');
+    const musicIcon = document.getElementById('music-icon');
+    const visualizer = document.getElementById('visualizer');
+    let isPlaying = false;
+
+    function toggleAudio() {
+      if (isPlaying) {
+        bgAudio.pause();
+        isPlaying = false;
+        musicStatusText.innerText = "Putar Musik 🎵";
+        visualizer.classList.remove('playing');
+        musicIcon.setAttribute('data-lucide', 'play');
+      } else {
+        bgAudio.play().then(() => {
+          isPlaying = true;
+          musicStatusText.innerText = "Musik Diputar 🎶";
+          visualizer.classList.add('playing');
+          musicIcon.setAttribute('data-lucide', 'pause');
+        }).catch(err => {
+          console.log("Audio playback error: ", err);
+        });
+      }
+      lucide.createIcons();
+    }
+
+    // Auto Play Attempt on First User Click anywhere
+    document.body.addEventListener('click', function autoPlayOnce() {
+      if (!isPlaying) {
+        toggleAudio();
+      }
+      document.body.removeEventListener('click', autoPlayOnce);
+    }, { once: true });
+
+    // Scroll Functions
+    function scrollToLetter() {
+      const section = document.getElementById('letter-section');
+      lenis.scrollTo(section);
+    }
+
+    function scrollToBouquet() {
+      const section = document.getElementById('bouquet-section');
+      lenis.scrollTo(section);
+    }
+
+    // Interactive Letter Reveal Toggle
+    function toggleLetter() {
+      const closed = document.getElementById('envelope-closed');
+      const opened = document.getElementById('envelope-opened');
+
+      if (opened.classList.contains('hidden')) {
+        closed.classList.add('hidden');
+        opened.classList.remove('hidden');
+        gsap.from("#envelope-opened", { scale: 0.9, opacity: 0, duration: 0.5, ease: "back.out(1.7)" });
+        triggerConfetti();
+      } else {
+        opened.classList.add('hidden');
+        closed.classList.remove('hidden');
+      }
+    }
+
+    // Interactive Flower Bouquet Builder
+    let flowerCount = 3;
+    function addFlower(name, emojiDesc) {
+      flowerCount++;
+      document.getElementById('flower-count').innerText = flowerCount;
+      
+      const container = document.getElementById('bouquet-flowers');
+      const newFlower = document.createElement('span');
+      
+      const flowerEmojis = ['🌹', '🌸', '🌻', '🪻', '🌺', '🌷'];
+      const randomEmoji = flowerEmojis[Math.floor(Math.random() * flowerEmojis.length)];
+      
+      newFlower.className = "text-5xl sm:text-6xl hover:scale-125 transition-transform cursor-pointer animate-bounce";
+      newFlower.innerText = randomEmoji;
+      newFlower.title = name;
+      
+      container.appendChild(newFlower);
+      
+      document.getElementById('flower-last-message').innerText = `"${randomEmoji} Bunga ${name} ditambahkan dari Kelas 7B!"`;
+      
+      triggerConfetti();
+    }
+
+    // Interactive Prayer Submit Form
+    function submitPrayer(e) {
+      e.preventDefault();
+      const name = document.getElementById('prayer-name').value;
+      const tag = document.getElementById('prayer-tag').value;
+      const text = document.getElementById('prayer-text').value;
+
+      const wall = document.getElementById('prayer-wall');
+      const newCard = document.createElement('div');
+      newCard.className = "glass-card p-6 rounded-2xl border border-amber-500/40 transition-all duration-300 flex flex-col justify-between";
+      
+      newCard.innerHTML = `
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-semibold px-2.5 py-1 bg-amber-500/10 text-amber-400 rounded-full border border-amber-500/20">${tag}</span>
+            <span class="text-[10px] text-amber-300">Baru Saja</span>
+          </div>
+          <p class="text-slate-200 text-sm leading-relaxed font-serif italic">
+            "${text}"
+          </p>
+        </div>
+        <div class="mt-4 pt-3 border-t border-white/5 flex items-center justify-between">
+          <span class="text-xs font-bold text-slate-300">~ ${name}</span>
+          <button onclick="likeCard(this)" class="text-slate-400 hover:text-amber-400 flex items-center gap-1 text-xs transition-colors">
+            <i data-lucide="heart" class="w-3.5 h-3.5"></i> <span class="like-count">1</span>
+          </button>
+        </div>
+      `;
+
+      wall.prepend(newCard);
+      gsap.from(newCard, { y: -20, opacity: 0, duration: 0.5 });
+      lucide.createIcons();
+
+      // Reset Form
+      document.getElementById('prayer-name').value = '';
+      document.getElementById('prayer-text').value = '';
+      triggerConfetti();
+    }
+
+    // Like Card Counter
+    function likeCard(btn) {
+      const countSpan = btn.querySelector('.like-count');
+      let current = parseInt(countSpan.innerText);
+      countSpan.innerText = current + 1;
+      btn.classList.add('text-amber-400');
+      gsap.to(btn, { scale: 1.3, duration: 0.15, yoyo: true, repeat: 1 });
+    }
+
+    // Copy Card Text to Clipboard
+    function copyCardText() {
+      const text = `Teruntuk Ibu Ni'mah Faadlilah, S.Pd. - Selamat Hari Guru 25 November 2026. Terima kasih sudah menjadi sosok guru Informatika yang sangat baik, ramah, dan menginspirasi kami di Kelas 7B SMP 3 GARUM. Salam hangat dan doa terbaik dari kami semua! (Salam Hormat, Teman-teman 7B SMP 3 GARUM)`;
+      
+      const tempTextArea = document.createElement('textarea');
+      tempTextArea.value = text;
+      document.body.appendChild(tempTextArea);
+      tempTextArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempTextArea);
+
+      // Visual Feedback
+      const btn = event.currentTarget;
+      const originalHTML = btn.innerHTML;
+      btn.innerHTML = `✓ Tersalin!`;
+      btn.classList.add('bg-amber-500', 'text-slate-950');
+      setTimeout(() => {
+        btn.innerHTML = originalHTML;
+        btn.classList.remove('bg-amber-500', 'text-slate-950');
+        lucide.createIcons();
+      }, 2000);
+    }
+
+    // Canvas Confetti Trigger
+    function triggerConfetti() {
+      confetti({
+        particleCount: 80,
+        spread: 70,
+        origin: { y: 0.7 },
+        colors: ['#f59e0b', '#fbbf24', '#ffffff', '#e2e8f0']
+      });
+    }
+
+    // GSAP Scroll Animations
+    gsap.registerPlugin(ScrollTrigger);
+
+    window.addEventListener('DOMContentLoaded', () => {
+      // Hero Entrance
+      gsap.from(".hero-badge", { y: -20, opacity: 0, duration: 0.8, delay: 0.2 });
+      gsap.from(".hero-subhead", { y: 20, opacity: 0, duration: 0.8, delay: 0.4 });
+      gsap.from(".hero-title", { y: 30, opacity: 0, duration: 1, delay: 0.6 });
+      gsap.from(".hero-desc", { y: 20, opacity: 0, duration: 0.8, delay: 0.8 });
+      gsap.from(".hero-btns", { y: 20, opacity: 0, duration: 0.8, delay: 1 });
+
+      // Scroll reveal generic elements
+      gsap.utils.toArray('.reveal-up').forEach((el) => {
+        gsap.from(el, {
+          scrollTrigger: {
+            trigger: el,
+            start: "top 85%",
+          },
+          y: 40,
+          opacity: 0,
+          duration: 1,
+          ease: "power2.out"
+        });
+      });
+    });
+
+    // Background Particle Canvas
+    const canvas = document.getElementById('particle-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 3 + 1;
+        this.speedY = Math.random() * 0.8 + 0.2;
+        this.opacity = Math.random() * 0.5 + 0.2;
+      }
+      update() {
+        this.y -= this.speedY;
+        if (this.y < 0) {
+          this.y = canvas.height;
+          this.x = Math.random() * canvas.width;
+        }
+      }
+      draw() {
+        ctx.fillStyle = `rgba(245, 158, 11, ${this.opacity})`;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    for (let i = 0; i < 40; i++) {
+      particles.push(new Particle());
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+  </script>
+</body>
+</html>
+```
